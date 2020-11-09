@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Index</title>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<h1>Index Page</h1>
+<a th:href="@{/employee}">Employee</a>
+<a th:href="@{/job}">Job</a>
+<a th:href="@{/course}">Course</a>
+<a th:href="@{/train}">Train</a><br><br>
+<form action="/show" method="post">
+    <select name="id">
+        <option th:each="employee : ${employee}" th:text="${employee.profile.name}" th:value="${employee.id}"></option>
+    </select>&nbsp;
+    <input type="submit" value="Show Course">
+</form>
+<br><br>
+<h1>One To One</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>NRC</th>
+    </tr>
+    <tr th:each="employee : ${employee}">
+        <td th:text="${employee.profile.name}"></td>
+        <td th:text="${employee.email}"></td>
+        <td th:text="${employee.profile.age}"></td>
+        <td th:text="${employee.profile.NRC}"></td>
+    </tr>
+</table>
+<h2>One To Many <==> Many To One</h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Age</th>
+        <th>NRC</th>
+        <th>Duty</th>
+        <th>Need</th>
+    </tr>
+    <tr th:each="job : ${job}">
+        <td th:text="${job.employee.profile.name}"></td>
+        <td th:text="${job.employee.email}"></td>
+        <td th:text="${job.employee.profile.age}"></td>
+        <td th:text="${job.employee.profile.NRC}"></td>
+        <td th:text="${job.title}"></td>
+        <td th:text="${job.need}"></td>
+    </tr>
+</table>
+</body>
+</html>
